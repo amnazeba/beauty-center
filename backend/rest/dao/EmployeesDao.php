@@ -23,36 +23,36 @@ class EmployeesDao extends BaseDao {
     }
 
     // Kreiraj novog zaposlenika
-    public function createEmployee($first_name, $last_name, $position, $skills) {
-        $stmt = $this->connection->prepare(
-            "INSERT INTO employees (first_name, last_name, position, skills) 
-             VALUES (:first_name, :last_name, :position, :skills)"
-        );
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name', $last_name);
-        $stmt->bindParam(':position', $position);
-        $stmt->bindParam(':skills', $skills);
-        return $stmt->execute();
-    }
+    // public function createEmployee($first_name, $last_name, $position, $skills) {
+    //     $stmt = $this->connection->prepare(
+    //         "INSERT INTO employees (first_name, last_name, position, skills) 
+    //          VALUES (:first_name, :last_name, :position, :skills)"
+    //     );
+    //     $stmt->bindParam(':first_name', $first_name);
+    //     $stmt->bindParam(':last_name', $last_name);
+    //     $stmt->bindParam(':position', $position);
+    //     $stmt->bindParam(':skills', $skills);
+    //     return $stmt->execute();
+    // }
 
     // Update zaposlenika
-    public function updateEmployee($employee_id, $first_name, $last_name, $position, $skills) {
-        $stmt = $this->connection->prepare(
-            "UPDATE employees 
-             SET first_name = :first_name, last_name = :last_name, position = :position, skills = :skills 
-             WHERE employee_id = :employee_id"
-        );
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name', $last_name);
-        $stmt->bindParam(':position', $position);
-        $stmt->bindParam(':skills', $skills);
-        $stmt->bindParam(':employee_id', $employee_id);
-        return $stmt->execute();
-    }
+    // public function updateEmployee($employee_id, $first_name, $last_name, $position, $skills) {
+    //     $stmt = $this->connection->prepare(
+    //         "UPDATE employees 
+    //          SET first_name = :first_name, last_name = :last_name, position = :position, skills = :skills 
+    //          WHERE employee_id = :employee_id"
+    //     );
+    //     $stmt->bindParam(':first_name', $first_name);
+    //     $stmt->bindParam(':last_name', $last_name);
+    //     $stmt->bindParam(':position', $position);
+    //     $stmt->bindParam(':skills', $skills);
+    //     $stmt->bindParam(':employee_id', $employee_id);
+    //     return $stmt->execute();
+    // }
 
     // Delete zaposlenika
-    public function deleteEmployee($employee_id) {
-        return $this->delete($employee_id);
-    }
+    // public function deleteEmployee($employee_id) {
+    //     return $this->delete($employee_id);
+    // }
 }
 ?>
