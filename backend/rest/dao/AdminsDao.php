@@ -42,12 +42,7 @@ class AdminsDao extends BaseDao {
         return $stmt->execute();
     }
 
-    // Delete admin
-    public function deleteAdmin($admin_id) {
-        return $this->delete($admin_id);
-    }
-
-    // Provjera login-a
+   
     public function checkLogin($username, $password) {
         $admin = $this->getByUsername($username);
         if ($admin && password_verify($password, $admin['password'])) {
