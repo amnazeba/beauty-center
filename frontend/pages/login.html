@@ -1,12 +1,44 @@
 <section class="section">
   <h2>Admin Login</h2>
-  <form action="login.php" method="POST" class="login-form">
-    <label>Username:</label>
-    <input type="text" name="username" required>
 
-    <label>Password:</label>
-    <input type="password" name="password" required>
+  <form id="login-form">
+    <label>Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label>Password</label>
+    <input type="password" id="password" name="password"required>
 
     <button type="submit">Login</button>
+
   </form>
 </section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script>
+$(function () {
+  $("#login-form").on("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+      username: $("#username").val(),
+      password: $("#password").val()
+    };
+
+    $.ajax({
+      url: "http://localhost/beauty-center/admins/login",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(data),
+      success: function (res) {
+        alert("Login successful");
+        localStorage.setItem("user_token", res.data.token);
+        window.location.href = "index.html";
+      },
+      error: function (xhr) {
+        alert("Login failed");
+      }
+    });
+  });
+});
+</script>

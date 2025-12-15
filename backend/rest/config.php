@@ -1,29 +1,19 @@
 <?php
-class Database {
-   private static $host = 'localhost';
-   private static $dbName = 'beautycenter';
-   private static $username = 'root';
-   private static $password = '';
-   private static $connection = null;
 
+// Prikaz grešaka (za razvoj)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL ^ (E_NOTICE | E_DEPRECATED));
 
-   public static function connect() {
-       if (self::$connection === null) {
-           try {
-               self::$connection = new PDO(
-                   "mysql:host=" . self::$host . ";dbname=" . self::$dbName,
-                   self::$username,
-                   self::$password,
-                   [
-                       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                   ]
-               );
-           } catch (PDOException $e) {
-               die("Connection failed: " . $e->getMessage());
-           }
-       }
-       return self::$connection;
-   }
+class Config
+{
+    // Podaci za konekciju na bazu
+    public static function DB_NAME() { return 'beautycenter'; }   // ime baze
+    public static function DB_PORT() { return 3306; }             // port MySQL-a
+    public static function DB_USER() { return 'root'; }           // korisnik
+    public static function DB_PASSWORD() { return ''; }           // lozinka
+    public static function DB_HOST() { return '127.0.0.1'; }      // host
+
+    // JWT ključ za autentifikaciju
+    public static function JWT_SECRET() { return 'your_key_string'; }
 }
-?>

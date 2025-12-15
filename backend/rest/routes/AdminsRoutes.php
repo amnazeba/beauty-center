@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/AdminsService.php';
+require_once __DIR__ . '/../../data/roles.php';
 
 $adminsService = new AdminsService();
 
@@ -15,6 +16,7 @@ $adminsService = new AdminsService();
  * )
  */
 Flight::route('GET /admins', function() use ($adminsService) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json($adminsService->getAll());
 });
 
@@ -36,6 +38,7 @@ Flight::route('GET /admins', function() use ($adminsService) {
  * )
  */
 Flight::route('GET /admins/@id', function($id) use ($adminsService) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json($adminsService->getById($id));
 });
 
@@ -86,7 +89,12 @@ Flight::route('POST /admins/login', function() use ($adminsService) {
 Flight::route('POST /admins/register', function() use ($adminsService) {
     $data = Flight::request()->data->getData();
     try {
-        $result = $adminsService->register($data['username'], $data['password'], $data['full_name'], $data['email']);
+        $result = $adminsService->register(
+            $data['username'],
+            $data['password'],
+            $data['full_name'],
+            $data['email']
+        );
         Flight::json($result);
     } catch(Exception $e) {
         Flight::json(['error' => $e->getMessage()], 400);
@@ -116,7 +124,9 @@ Flight::route('POST /admins/register', function() use ($adminsService) {
  * )
  */
 Flight::route('PUT /admins/@id', function($id) use ($adminsService) {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
-    Flight::json($adminsService->updateAdmin($id, $data['full_name'], $data['email']));
+    Flight::json(
+        $adminsService->updateAdmin($id, $data['full_name'], $data['email'])
+    );
 });
-?>
