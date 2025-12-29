@@ -17,12 +17,7 @@ Flight::route('GET /employees', function(){
  *     path="/employees/{id}",
  *     tags={"employees"},
  *     summary="Get employee by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="Employee data")
  * )
  */
@@ -36,12 +31,7 @@ Flight::route('GET /employees/@id', function($id){
  *     path="/employees/email/{email}",
  *     tags={"employees"},
  *     summary="Get employee by email",
- *     @OA\Parameter(
- *         name="email",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="string")
- *     ),
+ *     @OA\Parameter(name="email", in="path", required=true, @OA\Schema(type="string")),
  *     @OA\Response(response=200, description="Employee found by email")
  * )
  */
@@ -55,12 +45,7 @@ Flight::route('GET /employees/email/@email', function($email){
  *     path="/employees/position/{position}",
  *     tags={"employees"},
  *     summary="Get employees by position",
- *     @OA\Parameter(
- *         name="position",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="string")
- *     ),
+ *     @OA\Parameter(name="position", in="path", required=true, @OA\Schema(type="string")),
  *     @OA\Response(response=200, description="List of employees with selected position")
  * )
  */
@@ -74,15 +59,7 @@ Flight::route('GET /employees/position/@position', function($position){
  *     path="/employees",
  *     tags={"employees"},
  *     summary="Add a new employee",
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             required={"name", "email", "position"},
- *             @OA\Property(property="name", type="string", example="John Doe"),
- *             @OA\Property(property="email", type="string", example="john@example.com"),
- *             @OA\Property(property="position", type="string", example="Manager")
- *         )
- *     ),
+ *     @OA\RequestBody(required=true, @OA\JsonContent()),
  *     @OA\Response(response=200, description="Employee added")
  * )
  */
@@ -97,20 +74,8 @@ Flight::route('POST /employees', function(){
  *     path="/employees/{id}",
  *     tags={"employees"},
  *     summary="Update employee by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
- *             @OA\Property(property="email", type="string", example="updated@example.com"),
- *             @OA\Property(property="position", type="string", example="Supervisor")
- *         )
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+ *     @OA\RequestBody(required=true, @OA\JsonContent()),
  *     @OA\Response(response=200, description="Employee updated")
  * )
  */
@@ -125,12 +90,7 @@ Flight::route('PUT /employees/@id', function($id){
  *     path="/employees/{id}",
  *     tags={"employees"},
  *     summary="Delete employee by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="Employee deleted")
  * )
  */

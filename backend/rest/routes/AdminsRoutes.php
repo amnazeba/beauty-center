@@ -126,7 +126,6 @@ Flight::route('POST /admins/register', function() use ($adminsService) {
 Flight::route('PUT /admins/@id', function($id) use ($adminsService) {
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
-    Flight::json(
-        $adminsService->updateAdmin($id, $data['full_name'], $data['email'])
-    );
+    Flight::json($adminsService->updateAdmin($id, $data['full_name'], $data['email']));
 });
+?>

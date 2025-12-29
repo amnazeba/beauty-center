@@ -17,12 +17,7 @@ Flight::route('GET /clients', function(){
  *     path="/clients/{id}",
  *     tags={"clients"},
  *     summary="Get client by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="Client data")
  * )
  */
@@ -40,10 +35,10 @@ Flight::route('GET /clients/@id', function($id){
  *         required=true,
  *         @OA\JsonContent(
  *             required={"first_name","last_name","email","phone"},
- *             @OA\Property(property="first_name", type="string", example="John"),
- *             @OA\Property(property="last_name", type="string", example="Doe"),
- *             @OA\Property(property="email", type="string", example="john@example.com"),
- *             @OA\Property(property="phone", type="string", example="+38761234567")
+ *             @OA\Property(property="first_name", type="string"),
+ *             @OA\Property(property="last_name", type="string"),
+ *             @OA\Property(property="email", type="string"),
+ *             @OA\Property(property="phone", type="string")
  *         )
  *     ),
  *     @OA\Response(response=200, description="Client created")
@@ -60,21 +55,8 @@ Flight::route('POST /clients', function(){
  *     path="/clients/{id}",
  *     tags={"clients"},
  *     summary="Update client by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             @OA\Property(property="first_name", type="string", example="Updated First"),
- *             @OA\Property(property="last_name", type="string", example="Updated Last"),
- *             @OA\Property(property="email", type="string", example="updated@example.com"),
- *             @OA\Property(property="phone", type="string", example="+38761234567")
- *         )
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+ *     @OA\RequestBody(required=true, @OA\JsonContent()),
  *     @OA\Response(response=200, description="Client updated")
  * )
  */
@@ -91,12 +73,7 @@ Flight::route('PUT /clients/@id', function($id){
  *     path="/clients/{id}",
  *     tags={"clients"},
  *     summary="Delete client by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="Client deleted")
  * )
  */
