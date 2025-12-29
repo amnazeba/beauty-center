@@ -1,24 +1,15 @@
 <?php
-use Roles;
-
 /**
  * @OA\Get(
  *     path="/appointments/client/{id}",
  *     tags={"appointments"},
  *     summary="Get all appointments for a client",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="List of appointments for the client")
  * )
  */
 Flight::route('GET /appointments/client/@id', function($id){
-    // CLIENT i ADMIN mogu vidjeti
     Flight::auth_middleware()->authorizeRoles([Roles::CLIENT, Roles::ADMIN]);
-
     Flight::json(Flight::appointmentsService()->getByClientId($id));
 });
 
@@ -27,19 +18,12 @@ Flight::route('GET /appointments/client/@id', function($id){
  *     path="/appointments/employee/{id}",
  *     tags={"appointments"},
  *     summary="Get all appointments for an employee",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="List of appointments for the employee")
  * )
  */
 Flight::route('GET /appointments/employee/@id', function($id){
-    // EMPLOYEE i ADMIN mogu vidjeti
     Flight::auth_middleware()->authorizeRoles([Roles::EMPLOYEE, Roles::ADMIN]);
-
     Flight::json(Flight::appointmentsService()->getByEmployeeId($id));
 });
 
@@ -48,33 +32,16 @@ Flight::route('GET /appointments/employee/@id', function($id){
  *     path="/appointments",
  *     tags={"appointments"},
  *     summary="Create a new appointment",
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             required={"client_id","employee_id","service_id","admin_id","appointment_date","status"},
- *             @OA\Property(property="client_id", type="integer"),
- *             @OA\Property(property="employee_id", type="integer"),
- *             @OA\Property(property="service_id", type="integer"),
- *             @OA\Property(property="admin_id", type="integer"),
- *             @OA\Property(property="appointment_date", type="string"),
- *             @OA\Property(property="status", type="string")
- *         )
- *     ),
+ *     @OA\RequestBody(required=true, @OA\JsonContent()),
  *     @OA\Response(response=200, description="Appointment created")
  * )
  */
 Flight::route('POST /appointments', function(){
-    // CLIENT i ADMIN mogu kreirati
     Flight::auth_middleware()->authorizeRoles([Roles::CLIENT, Roles::ADMIN]);
-
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentsService()->createAppointment(
-        $data['client_id'],
-        $data['employee_id'],
-        $data['service_id'],
-        $data['admin_id'],
-        $data['appointment_date'],
-        $data['status']
+        $data['client_id'], $data['employee_id'], $data['service_id'],
+        $data['admin_id'], $data['appointment_date'], $data['status']
     ));
 });
 
@@ -83,28 +50,17 @@ Flight::route('POST /appointments', function(){
  *     path="/appointments/{id}",
  *     tags={"appointments"},
  *     summary="Update appointment by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         @OA\Schema(type="integer")
- *     ),
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+ *     @OA\RequestBody(required=true, @OA\JsonContent()),
  *     @OA\Response(response=200, description="Appointment updated")
  * )
  */
 Flight::route('PUT /appointments/@id', function($id){
-    // SAMO ADMIN
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
-
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentsService()->updateAppointment(
-        $id,
-        $data['client_id'],
-        $data['employee_id'],
-        $data['service_id'],
-        $data['admin_id'],
-        $data['appointment_date'],
-        $data['status']
+        $id, $data['client_id'], $data['employee_id'], $data['service_id'],
+        $data['admin_id'], $data['appointment_date'], $data['status']
     ));
 });
 
@@ -113,12 +69,12 @@ Flight::route('PUT /appointments/@id', function($id){
  *     path="/appointments/{id}",
  *     tags={"appointments"},
  *     summary="Delete appointment by ID",
+ *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  *     @OA\Response(response=200, description="Appointment deleted")
  * )
  */
 Flight::route('DELETE /appointments/@id', function($id){
-    // SAMO ADMIN
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
-
     Flight::json(Flight::appointmentsService()->deleteAppointment($id));
 });
+?>

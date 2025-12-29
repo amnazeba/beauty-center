@@ -1,19 +1,35 @@
 <?php
 
-// Prikaz grešaka (za razvoj)
+// Prikaz grešaka 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ (E_NOTICE | E_DEPRECATED));
 
 class Config
 {
-    // Podaci za konekciju na bazu
-    public static function DB_NAME() { return 'beautycenter'; }   // ime baze
-    public static function DB_PORT() { return 3306; }             // port MySQL-a
-    public static function DB_USER() { return 'root'; }           // korisnik
-    public static function DB_PASSWORD() { return ''; }           // lozinka
-    public static function DB_HOST() { return '127.0.0.1'; }      // host
+    // === INFINITYFREE DATABASE SETTINGS ===
+    public static function DB_NAME() {
+        return 'if0_40782210_beautycenter';
+    }
 
-    // JWT ključ za autentifikaciju
-    public static function JWT_SECRET() { return 'your_key_string'; }
+    public static function DB_PORT() {
+        return 3306;
+    }
+
+    public static function DB_USER() {
+        return 'if0_40782210';
+    }
+
+    public static function DB_PASSWORD() {
+        return '6zZFbmuJN9l';
+    }
+
+    public static function DB_HOST() {
+        return 'sql112.infinityfree.com';
+    }
+
+    // JWT secret (može ostati bilo šta)
+    public static function JWT_SECRET() {
+        return 'your_key_string';
+    }
 }
